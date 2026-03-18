@@ -5,12 +5,14 @@ import SuggestionCard from '@/components/SuggestionCard.vue';
 
 const ingredients = ref('');
 const suggestions = ref('');
+const loading = ref(false);
 const parsedResponse = ref<Array<{ name: string; time: string }>>([]);
 const parsedRecipeDetails = ref<{ name: string; ingredients: Array<{ name: string; quantity: string }>; instructions: string[] } | null>(null);
 
 const fetchRecipes = async () => {
   try {
     console.log('contacting ollama with ingredients:', ingredients.value);
+    loading.value = true;
     const response = await getRecipeSuggestions(ingredients.value);
 
     parsedResponse.value = response.split('\n').map((line) => {
@@ -22,6 +24,8 @@ const fetchRecipes = async () => {
     console.log(parsedResponse.value);
   } catch (error) {
     console.error('Error fetching recipe suggestions:', error);
+  } finally {    
+    loading.value = false;
   }
 };
 
@@ -30,6 +34,7 @@ const handleCardClick = async (name: string | undefined) => {
 
   try {
     console.log('Fetching details for recipe:', name);
+    loading.value = true;
     const response = await getRecipeDetails(name || '', ingredients.value);;
     console.log('Recipe details response:', response);
     
@@ -45,6 +50,8 @@ const handleCardClick = async (name: string | undefined) => {
 
   } catch (error) {
     console.error('Error fetching recipe details:', error);
+  } finally {
+    loading.value = false;
   }
 };
 
@@ -52,9 +59,11 @@ const handleCardClick = async (name: string | undefined) => {
 
 <template>
   <div class="aigeir-wrapper">
-    <h1>Cookgeir</h1>
-    <input type="text" v-model="ingredients" placeholder="Enter ingredients, separated by commas" />
-    <button @click="fetchRecipes">Get Recipe Suggestions</button>
+    <div class="input-container">
+      <input type="text" v-model="ingredients" placeholder="Enter ingredients, separated by commas" />
+      <button @click="fetchRecipes">Get Recipe Suggestions</button>
+      <div v-if="loading">Loading...</div>
+    </div>
 
     <div class="suggestions-wrapper" v-if="parsedResponse.length > 0">
       <SuggestionCard :name="parsedResponse[0]?.name ?? ''" :time="parsedResponse[0]?.time ?? ''"
@@ -92,6 +101,14 @@ const handleCardClick = async (name: string | undefined) => {
   padding: 32px;
 }
 
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  gap: 20px;
+}
+
 .suggestions-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -100,7 +117,15 @@ const handleCardClick = async (name: string | undefined) => {
 }
 
 button {
-  font-family: "Rubik", sans-serif;
+  font-family: "Noto-sans", sans-serif;
+}
+
+input {
+  font-family: "Noto-sans", sans-serif;
+  padding: 8px;
+  width: 300px;
+  margin-top: 16px;
+  border-radius: 5px;
 }
 
 </style>
