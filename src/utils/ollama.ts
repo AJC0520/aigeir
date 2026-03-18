@@ -18,7 +18,28 @@ export async function getRecipeSuggestions(ingredients: string): Promise<string>
                 }
             ],
             stream: false,
-            think: true,
+            think: false,
+        })
+    })
+
+    const data = await response.json()
+    return data.message.content
+}
+
+export async function getRecipeDetails(recipeName: string, ingredients: string): Promise<string> {
+    const response = await fetch('http://localhost:11434/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            model: 'qwen3.5:4b',
+            messages: [
+                {
+                    role: 'user',
+                    content: `Provide detailed instructions for making ${recipeName} using relevant ingredients from: ${ingredients}. No thinking, no explanation, no extra text. Respond ONLY with valid JSON in this exact format: { "ingredients": [{ "name": "ingredient name", "quantity": "amount" }], "instructions": ["Step one", "Step two"] }`
+                }
+            ],
+            stream: false,
+            think: false,
         })
     })
 

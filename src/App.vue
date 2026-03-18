@@ -4,10 +4,24 @@ import Cookgeir from './views/Cookgeir.vue';
 </script>
 
 <template>
-
-  <h1>Aigeir</h1>
+  <header>
+    <h1><span class="ai-text">AI</span>geir</h1>
+  </header>
   <Cookgeir />
+
+
   
 </template>
 
-<style scoped></style>
+<style scoped>
+  header {
+    background-color: #193824;
+    color: white;
+    padding: 16px;
+    text-align: left;
+}
+
+.ai-text {
+    color: #4CAF50;
+}
+</style>
