@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ChefHat, CircleQuestionMark } from 'lucide-vue-next'
 import { ref, onMounted } from 'vue'
-import { RouterLink } from 'vue-router'
 
 const dropped = ref(false)
 
@@ -24,36 +22,11 @@ onMounted(() => {
                 --><span>geir</span>
             </h1>
         </section>
-
-        <section class="nav-container">
-            <div class="navbox red">
-                <p>unnamed</p>
-                <CircleQuestionMark class="nav-icon" :size="40" />
-            </div>
-            <div class="navbox purple">
-                <p>unnamed</p>
-                <CircleQuestionMark class="nav-icon" :size="40" />
-            </div>
-            <RouterLink to="/cookgeir">
-                <div class="navbox green">
-                    <p>cookgeir</p>
-                    <ChefHat class="nav-icon" :size="40"/>
-                </div>
-            </RouterLink>
-            <div class="navbox blue">
-                <p>unnamed</p>
-                <CircleQuestionMark class="nav-icon" :size="40" />
-            </div>
-        </section>
     </div>
 </template>
 
 <style scoped>
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
 h1 {
     margin: 0;
     font-size: clamp(4rem, 12vw, 20rem);
@@ -74,11 +47,9 @@ h1 {
 
 .main-wrapper {
     min-height: 100vh;
-    display: grid;
-    grid-template-columns: minmax(320px, 1fr) minmax(320px, 560px);
-    align-items: stretch;
-    column-gap: clamp(2rem, 7vw, 8rem);
-    padding: clamp(2rem, 4vw, 4rem) clamp(2rem, 7vw, 6rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     box-sizing: border-box;
     background: #fafafa;
     background: radial-gradient(circle,rgba(250, 250, 250, 1) 70%, rgba(133, 208, 255, 1) 100%);
@@ -108,8 +79,8 @@ h1 {
         transform: scaleY(1) scaleX(1);
     }
     100% {
-        opacity: 0;
-        transform: scaleY(0.1) scaleX(1.4);
+        opacity: 0.15;
+        transform: scaleY(0.15) scaleX(1.5);
     }
 }
 
@@ -195,69 +166,7 @@ h1 {
 
 /* --- End anvil animation --- */
 
-.nav-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-self: stretch;
-    min-height: 100%;
-    width: 100%;
-}
-
-.navbox {
-    width: 100%;
-    height: clamp(85px, 12vh, 600px);
-    border: 1px solid black;
-    color: rgb(219, 219, 219);
-    font-size: 2.1rem;
-    font-family: "Noto-Sans" sans-serif;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-    padding: 0.7rem 0.9rem;
-    box-sizing: border-box;
-    position: relative;
-}
-
-.navbox p{
-    margin: 0;
-    padding: 0;
-}
-
-.nav-icon {
-    position: absolute;
-    right: 0.9rem;
-    bottom: 0.7rem;
-}
-
-.red {
-    background-color: #401717;
-}
-
-.purple {
-    background-color: #2A1125;
-}
-
-.green {
-    background-color: #152612;
-}
-
-.blue {
-    background-color: #1D3B48;
-}
-
 @media (max-width: 980px) {
-    .main-wrapper {
-        grid-template-columns: 1fr;
-        row-gap: 2rem;
-    }
-
-    .nav-container {
-        min-height: auto;
-        justify-content: flex-start;
-        gap: 1rem;
-    }
-
     .title-container {
         min-height: auto;
     }

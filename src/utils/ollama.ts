@@ -35,7 +35,7 @@ export async function getRecipeDetails(recipeName: string, ingredients: string):
             messages: [
                 {
                     role: 'user',
-                    content: `Provide detailed instructions for making ${recipeName} using relevant ingredients from: ${ingredients}. No thinking, no explanation, no extra text. Respond ONLY with valid JSON in this exact format: { "ingredients": [{ "name": "ingredient name", "quantity": "amount" }], "instructions": ["Step one", "Step two"] }`
+                    content: `You are a professional chef. Create a recipe for ${recipeName} using ingredients from: ${ingredients}. You may assume basic pantry items (salt, pepper, oil, butter, flour, sugar, common spices). You may add up to 3 extra ingredients thats not on the list if necessary. Respond ONLY with valid JSON, no extra text, no markdown. Format: { "ingredients": [{ "name": "string", "quantity": "string" }], "instructions": ["string"] }`
                 }
             ],
             stream: false,
