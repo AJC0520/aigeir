@@ -22,7 +22,7 @@ defineProps<{
     padding: 16px;
     margin: 16px 0;
     background-color: #f9f9f9;
-    width: 300px;
+    width: 100%;
     text-align: center;
     transition: ease-in-out 0.1s;
 
