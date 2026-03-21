@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import ToolShowcase from '@/components/ToolShowcase.vue'
+import cookgeirPreview from '@/assets/png/chef_cooking.png'
 
 const dropped = ref(false)
 const showExplore = ref(false)
-const router = useRouter()
+const toolsAnchor = ref<HTMLElement | null>(null)
+
+function scrollToTools() {
+    toolsAnchor.value?.scrollIntoView({ behavior: 'smooth' })
+}
 
 onMounted(() => {
     setTimeout(() => {
@@ -33,7 +38,7 @@ function onAnvilDropEnd() {
                 <div class="hero-content" :class="{ 'hero-content--visible': showExplore }">
                     <p class="subtitle">A personal collection of AI-powered tools built for everyday tasks. Each tool is
                         designed to be simple, fast, and useful. </p>
-                    <button class="toolbox-button" type="button">
+                    <button class="toolbox-button" type="button" @click="scrollToTools">
                         <p>Explore</p>
                     </button>
                 </div>
@@ -49,19 +54,41 @@ function onAnvilDropEnd() {
                 </div>
                 </div>
         </section>
+        <div id="tools" ref="toolsAnchor" class="tools-snap">
+            <ToolShowcase
+                name="Cookgeir"
+                description="Your AI-powered kitchen companion. List your ingredients in the fridge and get a recipe in seconds."
+                route="/cookgeir"
+                background="#f5f5f0"
+                :image-src="cookgeirPreview"
+                image-alt="Cookgeir preview"
+            />
+            <ToolShowcase
+                name="Tool 2"
+                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut facilisis, quam ac volutpat scelerisque, quam diam commodo massa, at maximus leo nibh vehicula enim."
+                route="/"
+                background="#f0f2f5"
+                reverse
+            />
+            <ToolShowcase
+                name="Tool 3"
+                description=". Nulla odio sapien, ornare in magna aliquam, ultrices convallis massa. Suspendisse placerat arcu nisl, eget fermentum arcu gravida et"
+                route="/"
+                background="#f3f0f5"
+            />
+        </div>
     </div>
 </template>
 
 <style scoped>
 .home-shell {
-    min-height: 100vh;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    overflow: hidden;
     background: #fafafa;
+}
+
+.tools-snap {
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
 }
 
 .figure-container {
@@ -92,6 +119,7 @@ function onAnvilDropEnd() {
     padding: 0 12vw;
     margin-bottom: 8vh;
     box-sizing: border-box;
+    min-height: 100vh;
 }
 
 .hero-left {
