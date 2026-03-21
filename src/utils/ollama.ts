@@ -2,7 +2,7 @@
 
 // *****************************************************************
 //
-//      COOKGEIR FUNCTIONS
+//      CHEFGEIR FUNCTIONS
 //
 // *****************************************************************
 export async function getRecipeSuggestions(ingredients: string): Promise<string> {

@@ -1,6 +1,6 @@
 import App from "@/App.vue";
 import { createRouter, createWebHistory } from "vue-router";
-import Cookgeir from "@/views/Cookgeir.vue";
+import Chefgeir from "@/views/Chefgeir.vue";
 import Home from "@/views/Home.vue";
 
 
@@ -8,7 +8,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: "/", component: Home },
-        { path: "/cookgeir", component: Cookgeir },
+        { path: "/chefgeir", component: Chefgeir },
     ],
 });
 

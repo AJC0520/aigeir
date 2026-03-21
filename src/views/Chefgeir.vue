@@ -86,18 +86,18 @@ const startOver = () => {
 </script>
 
 <template>
-  <div class="cookgeir-page">
-    <header class="cookgeir-header">
+  <div class="chefgeir-page">
+    <header class="chefgeir-header">
       <button class="back-button" @click="router.push('/')">
         &larr;
       </button>
       <div class="header-text">
-        <h1 class="header-title">Cookgeir</h1>
+        <h1 class="header-title">Chefgeir</h1>
         <p class="header-subtitle">Tell me what's in your fridge and I'll figure out dinner.</p>
       </div>
     </header>
 
-    <main class="cookgeir-body">
+    <main class="chefgeir-body">
       <Transition name="recipe-fade">
         <div class="input-section" v-if="!pickedRecipe">
           <div class="input-row">
@@ -189,13 +189,13 @@ const startOver = () => {
 </template>
 
 <style scoped>
-.cookgeir-page {
+.chefgeir-page {
   min-height: 100vh;
   background: #fafafa;
   font-family: "Noto-sans", sans-serif;
 }
 
-.cookgeir-header {
+.chefgeir-header {
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -241,7 +241,7 @@ const startOver = () => {
   line-height: 1.5;
 }
 
-.cookgeir-body {
+.chefgeir-body {
   max-width: 900px;
   margin: 0 auto;
   padding: 3rem 2rem 4rem;
@@ -547,11 +547,11 @@ const startOver = () => {
 }
 
 @media (max-width: 640px) {
-  .cookgeir-header {
+  .chefgeir-header {
     padding: 2rem 6vw 1.5rem;
   }
 
-  .cookgeir-body {
+  .chefgeir-body {
     padding: 2rem 6vw 3rem;
   }
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import ToolShowcase from '@/components/ToolShowcase.vue'
-import cookgeirPreview from '@/assets/png/chef_cooking.png'
+import chefgeirPreview from '@/assets/png/chef_cooking.png'
 
 const dropped = ref(false)
 const showExplore = ref(false)
@@ -56,12 +56,12 @@ function onAnvilDropEnd() {
         </section>
         <div id="tools" ref="toolsAnchor" class="tools-snap">
             <ToolShowcase
-                name="Cookgeir"
+                name="Chefgeir"
                 description="Your AI-powered kitchen companion. List your ingredients in the fridge and get a recipe in seconds."
-                route="/cookgeir"
+                route="/chefgeir"
                 background="#f5f5f0"
-                :image-src="cookgeirPreview"
-                image-alt="Cookgeir preview"
+                :image-src="chefgeirPreview"
+                image-alt="Chefgeir preview"
             />
             <ToolShowcase
                 name="Tool 2"
