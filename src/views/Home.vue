@@ -1,31 +1,128 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 const dropped = ref(false)
+const showExplore = ref(false)
+const router = useRouter()
 
 onMounted(() => {
     setTimeout(() => {
         dropped.value = true
     }, 800)
 })
+
+function onAnvilDropEnd() {
+    showExplore.value = true
+}
+
 </script>
 
 <template>
-    <div class="main-wrapper">
-        <section class="title-container">
-            <h1 :class="{ 'title-impact': dropped }">
-                <span class="letter-a" :class="{ 'letter-a--bold': dropped }">A</span><!--
-                --><span class="swap">
-                    <span class="swap__s" :class="{ 'swap__s--crushed': dropped }">s</span>
-                    <span class="swap__i" :class="{ 'swap__i--drop': dropped }">I</span>
-                </span><!--
-                --><span>geir</span>
-            </h1>
+    <div class="home-shell">
+        <section class="hero">
+            <div class="hero-left">
+                <h1 :class="{ 'title-impact': dropped }">
+                    <span class="letter-a" :class="{ 'letter-a--bold': dropped }">A</span><!--
+                    --><span class="swap">
+                        <span class="swap__s" :class="{ 'swap__s--crushed': dropped }">s</span>
+                        <span class="swap__i" :class="{ 'swap__i--drop': dropped }" @animationend="onAnvilDropEnd">I</span>
+                    </span><!--
+                    --><span class="title-geir" :class="{ 'title-geir--post-drop': dropped }">geir</span>
+                </h1>
+                <div class="hero-content" :class="{ 'hero-content--visible': showExplore }">
+                    <p class="subtitle">A personal collection of AI-powered tools built for everyday tasks. Each tool is
+                        designed to be simple, fast, and useful. </p>
+                    <button class="toolbox-button" type="button">
+                        <p>Explore</p>
+                    </button>
+                </div>
+            </div>
+            <div class="hero-right" :class="{ 'hero-right--visible': showExplore }">
+                <div class="figure-container">
+                    <img src="@/assets/png/figure.png" alt="figure" class="hero-figure" />
+                    <div class="social-container">
+                        <a href="https://github.com/AJC0520" target="_blank" rel="noopener noreferrer"><img src="@/assets/png/github_logo.png" alt="GitHub link" width="40px"></a>
+                        <a href="https://www.linkedin.com/in/asgeir-jacobsen-96b95b325/" target="_blank" rel="noopener noreferrer"><img src="@/assets/png/linkedin_logo.png" alt="LinkedIn link" width="40px"></a>
+
+                    </div>
+                </div>
+                </div>
         </section>
     </div>
 </template>
 
 <style scoped>
+.home-shell {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+    background: #fafafa;
+}
+
+.figure-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.social-container {
+    display: flex;
+    gap: 1.8rem;
+    justify-content: center;
+}
+
+.social-container a {
+    transition: transform 100ms ease-in-out;
+}
+
+.social-container a:hover {
+    transform: translateY(-4px);
+}
+.hero {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 12vw;
+    margin-bottom: 8vh;
+    box-sizing: border-box;
+}
+
+.hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+}
+
+.hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.hero-right--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-figure {
+    max-height: 70vh;
+    max-width: 40vw;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
 
 h1 {
     margin: 0;
@@ -35,33 +132,115 @@ h1 {
     line-height: 0.95;
 }
 
-.title-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100%;
-    text-align: center;
-    overflow: visible;
+.subtitle {
+    margin: 5rem 0 2rem;
+    font-family: "Noto-sans", sans-serif;
+    font-size: clamp(0.95rem, 1.4vw, 1.25rem);
+    color: rgb(120, 120, 120);
+    max-width: 480px;
+    line-height: 1.6;
 }
 
-.main-wrapper {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    background: #fafafa;
-    background: radial-gradient(circle,rgba(250, 250, 250, 1) 70%, rgba(133, 208, 255, 1) 100%);
+
+.title-geir--post-drop {
+    animation: geir-snap 0s step-end 0.29s forwards;
 }
 
+@keyframes geir-snap {
+    to {
+        margin-left: -0.2em;
+    }
+}
+
+.hero-content {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 220ms ease, transform 220ms ease;
+    pointer-events: none;
+}
+
+.hero-content--visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.toolbox-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 1.4rem;
+    color: #d8e5ef;
+    background: rgba(6, 13, 24, 0.86);
+    padding: 0.8rem 2rem;
+    border: 1px solid #264a66;
+    border-radius: 9999px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.toolbox-button p {
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.toolbox-button::before {
+    content: "";
+    position: absolute;
+    top: -35%;
+    bottom: -35%;
+    width: 38%;
+    left: 0;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.52) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: translateX(-180%) skewX(-24deg);
+    z-index: 0;
+    pointer-events: none;
+    animation: explore-shine 2.9s ease-in-out infinite;
+}
+
+.toolbox-button:hover {
+    transform: translateY(-2px);
+    background: rgba(9, 22, 38, 0.96);
+}
+
+@keyframes explore-shine {
+    0% {
+        transform: translateX(-180%) skewX(-24deg);
+        opacity: 0;
+    }
+
+    8% {
+        opacity: 1;
+    }
+
+    30% {
+        transform: translateX(290%) skewX(-24deg);
+        opacity: 1;
+    }
+
+    38% {
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(290%) skewX(-24deg);
+        opacity: 0;
+    }
+}
 
 .swap {
     display: inline-grid;
     overflow: visible;
 }
 
-.swap > span {
+.swap>span {
     grid-area: 1 / 1;
 }
 
@@ -78,8 +257,9 @@ h1 {
         opacity: 1;
         transform: scaleY(1) scaleX(1);
     }
+
     100% {
-        opacity: 0.15;
+        opacity: 0;
         transform: scaleY(0.15) scaleX(1.5);
     }
 }
@@ -100,38 +280,49 @@ h1 {
         transform: translateY(-500%);
         opacity: 0;
     }
+
     4% {
         transform: translateY(-470%);
         opacity: 1;
     }
+
     14% {
         transform: translateY(-350%);
         opacity: 1;
     }
+
     26% {
         transform: translateY(-180%);
     }
+
     38% {
         transform: translateY(-40%);
     }
+
     42% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-7%);
     }
+
     60% {
         transform: translateY(0);
     }
+
     70% {
         transform: translateY(-3%);
     }
+
     82% {
         transform: translateY(0);
     }
+
     90% {
         transform: translateY(-1%);
     }
+
     100% {
         transform: translateY(0);
         opacity: 1;
@@ -157,18 +348,44 @@ h1 {
 }
 
 @keyframes impact-shake {
-    0%, 100% { transform: translateY(0); }
-    20% { transform: translateY(3px); }
-    40% { transform: translateY(-2px); }
-    60% { transform: translateY(1px); }
-    80% { transform: translateY(-1px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    20% {
+        transform: translateY(3px);
+    }
+
+    40% {
+        transform: translateY(-2px);
+    }
+
+    60% {
+        transform: translateY(1px);
+    }
+
+    80% {
+        transform: translateY(-1px);
+    }
 }
 
-/* --- End anvil animation --- */
-
 @media (max-width: 980px) {
-    .title-container {
-        min-height: auto;
+    .hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 6vw;
+    }
+
+    .hero-right {
+        justify-content: flex-start;
+        margin-top: 3rem;
+    }
+
+    .hero-figure {
+        max-width: 80vw;
+        max-height: 40vh;
     }
 }
 </style>
