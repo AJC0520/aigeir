@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 import SuggestionCard from '@/components/SuggestionCard.vue';
 import chefThinking from '@/assets/png/chef_thinking.png';
 import chefCooking from '@/assets/png/chef_cooking.png';
-import { ArrowLeft } from 'lucide-vue-next';
+import { ArrowLeft, ArrowRight, Plus } from 'lucide-vue-next';
 
 const router = useRouter()
 const ingredientInput = ref('');
@@ -96,10 +96,7 @@ const startOver = () => {
 
     <header class="chefgeir-header">
       <button class="back-button" @click="router.push('/')" aria-label="Back to home">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="19" y1="12" x2="5" y2="12"/>
-          <polyline points="12 19 5 12 12 5"/>
-        </svg>
+        <ArrowLeft :size="20" />
       </button>
       <div class="header-text">
         <h1 class="header-title">Chefgeir</h1>
@@ -119,16 +116,13 @@ const startOver = () => {
               <input
                 type="text"
                 v-model="ingredientInput"
-                placeholder="e.g. chicken thighs, garlic, lemon..."
+                placeholder="e.g. chicken thighs"
                 @keydown="handleInputKeydown"
               />
               <span class="input-hint" v-if="!ingredientInput">press enter to add</span>
             </div>
             <button class="add-button" @click="addIngredient" :disabled="!ingredientInput.trim()">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"/>
-                <line x1="5" y1="12" x2="19" y2="12"/>
-              </svg>
+              <Plus :size="20" />
             </button>
           </div>
 
@@ -154,10 +148,7 @@ const startOver = () => {
               <span v-if="suggestionsLoading" class="spinner"></span>
               <template v-else>
                 <span>Find me recipes</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"/>
-                  <polyline points="12 5 19 12 12 19"/>
-                </svg>
+                <ArrowRight :size="20" />
               </template>
             </button>
             <p class="ingredient-hint" v-if="ingredientCount < 3 && ingredientCount > 0">
@@ -200,7 +191,7 @@ const startOver = () => {
       <Transition name="recipe-fade">
         <div v-if="pickedRecipe" class="recipe-section">
           <button class="start-over-button" @click="startOver">
-          <ArrowLeft size="15" />
+          <ArrowLeft :size="15" />
             Start again
           </button>
 
