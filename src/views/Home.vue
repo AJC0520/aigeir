@@ -59,7 +59,8 @@ function onAnvilDropEnd() {
                 name="Chefgeir"
                 description="Your AI-powered kitchen companion. List your ingredients in the fridge and get a recipe in seconds."
                 route="/chefgeir"
-                background="#f5f5f0"
+                background="#fdf6ec"
+                :underline-on-hover="true"
                 :image-src="chefgeirPreview"
                 image-alt="Chefgeir preview"
             />

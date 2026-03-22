@@ -12,6 +12,7 @@ const props = defineProps<{
     reverse?: boolean
     imageSrc?: string
     imageAlt?: string
+    underlineOnHover?: boolean
 }>()
 
 const sectionEl = ref<HTMLElement | null>(null)
@@ -41,7 +42,7 @@ onMounted(() => {
         @click="router.push(route)"
     >
         <div class="showcase__text">
-            <h2 class="showcase__name">{{ name }}</h2>
+            <h2 class="showcase__name" :class="{ 'showcase__name--underline-on-hover': props.underlineOnHover }">{{ name }}</h2>
             <p class="showcase__desc">{{ description }}</p>
         </div>
         <div class="showcase__visual">
@@ -100,6 +101,29 @@ onMounted(() => {
     letter-spacing: -0.03em;
     line-height: 1;
     color: #111;
+}
+
+.showcase__name--underline-on-hover {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.08em;
+}
+
+.showcase__name--underline-on-hover::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    height: 3px;
+    background: currentColor;
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform 280ms ease;
+}
+
+.showcase:hover .showcase__name--underline-on-hover::after {
+    transform: scaleX(1);
 }
 
 .showcase__desc {
